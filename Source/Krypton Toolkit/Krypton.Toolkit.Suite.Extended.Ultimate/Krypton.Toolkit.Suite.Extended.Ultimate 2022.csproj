@@ -12,7 +12,8 @@
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>..\_shared-assets\StrongKrypton.snk</AssemblyOriginatorKeyFile>
 		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-		<UseWindowsForms>true</UseWindowsForms>		<LangVersion>preview</LangVersion>
+		<UseWindowsForms>true</UseWindowsForms>		
+		<LangVersion>preview</LangVersion>
 		<Nullable>enable</Nullable>
 		<WarningLevel>6</WarningLevel>
 		<AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
@@ -29,23 +30,27 @@
 		<When Condition="'$(Configuration)' == 'Canary'">
 			<PropertyGroup>
 				<PackageId>Krypton.Toolkit.Suite.Extended.Ultimate.Canary</PackageId>
+				<PackageIcon>Krypton Canary.png</PackageIcon>
 			</PropertyGroup>
 		</When>
 
 		<When Condition="'$(Configuration)' == 'Nightly'">
 			<PropertyGroup>
 				<PackageId>Krypton.Toolkit.Suite.Extended.Ultimate.Nightly</PackageId>
+				<PackageIcon>Krypton Nightly.png</PackageIcon>
 			</PropertyGroup>
 		</When>
 
 		<When Condition="'$(Configuration)' == 'Release'">
 			<PropertyGroup>
 				<PackageId>Krypton.Toolkit.Suite.Extended.Ultimate</PackageId>
+				<PackageIcon>Krypton Stable.png</PackageIcon>
 			</PropertyGroup>
 		</When>
 		<Otherwise>
 			<PropertyGroup>
 				<PackageId>Krypton.Toolkit.Suite.Extended.Ultimate</PackageId>
+				<PackageIcon>Krypton Stable.png</PackageIcon>
 			</PropertyGroup>
 		</Otherwise>
 	</Choose>
@@ -69,7 +74,6 @@
 			To view all of the extended toolkit package latest version information, please visit: 
 			https://github.com/Krypton-Suite/Krypton-Toolkit-Suite-Version-Dashboard/blob/main/Documents/Modules/Extended/Krypton-Toolkit-Suite-Extended-Modules.md
 		</Description>
-		<PackageIcon>Krypton Stable.png</PackageIcon>
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		
 	</PropertyGroup>
@@ -78,37 +82,25 @@
 	<Choose>
 		<When Condition="'$(Configuration)' == 'Nightly'">
 			<ItemGroup>
-				<PackageReference Include="Krypton.Docking.Nightly" Version="100.25.11.318-alpha" />
-				<PackageReference Include="Krypton.Toolkit.Nightly" Version="100.25.11.318-alpha" />
-				<PackageReference Include="Krypton.Ribbon.Nightly" Version="100.25.11.318-alpha" />
-				<PackageReference Include="Krypton.Navigator.Nightly" Version="100.25.11.318-alpha" />
+				<PackageReference Include="Krypton.Standard.Toolkit.Nightly" Version="110.26.1.1-alpha" />
 			</ItemGroup>
 		</When>
 
 		<When Condition="'$(Configuration)' == 'Canary'">
 			<ItemGroup>
-				<PackageReference Include="Krypton.Docking.Canary" Version="100.25.11.318-beta" />
-				<PackageReference Include="Krypton.Toolkit.Canary" Version="100.25.11.318-beta" />
-				<PackageReference Include="Krypton.Ribbon.Canary" Version="100.25.11.318-beta" />
-				<PackageReference Include="Krypton.Navigator.Canary" Version="100.25.11.318-beta" />
+				<PackageReference Include="Krypton.Standard.Toolkit.Canary" Version="110.25.12.353-beta" />
 			</ItemGroup>
 		</When>
 
 		<When Condition="'$(Configuration)' == 'Release'">
 			<ItemGroup>
-				<PackageReference Include="Krypton.Docking" Version="100.25.11.328" />
-				<PackageReference Include="Krypton.Toolkit" Version="100.25.11.328" />
-				<PackageReference Include="Krypton.Ribbon" Version="100.25.11.328" />
-				<PackageReference Include="Krypton.Navigator" Version="100.25.11.328" />
+				<PackageReference Include="Krypton.Standard.Toolkit" Version="110.26.11.328" />
 			</ItemGroup>
 		</When>
 
 		<Otherwise>
 			<ItemGroup>
-				<PackageReference Include="Krypton.Docking" Version="95.25.10.293" />
-				<PackageReference Include="Krypton.Toolkit" Version="95.25.10.293" />
-				<PackageReference Include="Krypton.Ribbon" Version="95.25.10.293" />
-				<PackageReference Include="Krypton.Navigator" Version="95.25.10.293" />
+				<PackageReference Include="Krypton.Standard.Toolkit" Version="110.26.11.328" />
 			</ItemGroup>
 		</Otherwise>
 	</Choose>
@@ -205,8 +197,9 @@
 	</ItemGroup>
 
 	<!-- Package Assets -->
+	<!-- Note: README.md and icons are handled centrally in Directory.Build.props -->
+	<!-- Ultimate projects use a different license file location -->
 	<ItemGroup>
-		<None Include="..\..\..\README.md" Pack="true" PackagePath="\" />
 		<None Include="..\_shared-assets\License.txt" Pack="true" PackagePath="" Link="License\License.txt" />
 	</ItemGroup>
 

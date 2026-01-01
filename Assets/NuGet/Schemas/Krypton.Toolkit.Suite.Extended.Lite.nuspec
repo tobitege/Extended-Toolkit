@@ -8,7 +8,7 @@
     <owners></owners>
     <requireLicenseAcceptance>true</requireLicenseAcceptance>
     <licenseUrl>https://github.com/Krypton-Suite/Extended-Toolkit</licenseUrl>
-    <icon>Krypton Stable.png</icon>
+    <icon>Icon.png</icon>
     <projectUrl>https://github.com/Krypton-Suite/Extended-Toolkit</projectUrl>
     <description>An extension to the Standard Toolkit, which supports .NET Framework 4.8 - 4.8.1, .NET Core 3.1 and .NET 6 - 7. This package implements all modules in one package.</description>
     <releaseNotes>Get updates here: https://github.com/Krypton-Suite/Extended-Toolkit</releaseNotes>

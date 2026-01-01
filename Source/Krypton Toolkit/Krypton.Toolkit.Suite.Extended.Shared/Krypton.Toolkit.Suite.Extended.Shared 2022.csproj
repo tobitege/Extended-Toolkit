@@ -103,6 +103,10 @@
 		</Otherwise>
 	</Choose>
 
+	<ItemGroup>
+		<ProjectReference Include="..\Krypton.Toolkit.Suite.Extended.Utilities\Krypton.Toolkit.Suite.Extended.Utilities 2022.csproj" />
+	</ItemGroup>
+
 	<!--Binary/Documentation Output-->
 	<PropertyGroup>
 		<DocumentationFile>..\..\..\Bin\$(configuration)\Krypton.Toolkit.Suite.Extended.Common\Krypton.Toolkit.Suite.Extended.Shared.xml</DocumentationFile>

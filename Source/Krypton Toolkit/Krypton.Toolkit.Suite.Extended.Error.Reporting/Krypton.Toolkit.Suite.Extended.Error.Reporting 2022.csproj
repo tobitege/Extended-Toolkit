@@ -105,6 +105,10 @@
 	</Choose>
 
 	<ItemGroup>
+		<ProjectReference Include="..\Krypton.Toolkit.Suite.Extended.Navigator\Krypton.Toolkit.Suite.Extended.Navigator 2022.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Handlebars.Net" Version="2.1.6" />
 		<PackageReference Include="ProDotNetZip" Version="1.20.0" />
 		<PackageReference Include="Simple-MAPI.NET" Version="1.2.1" />

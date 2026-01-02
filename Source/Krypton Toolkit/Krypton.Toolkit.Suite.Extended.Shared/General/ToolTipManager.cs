@@ -1,4 +1,4 @@
-﻿#region MIT License
+#region MIT License
 /*
  *
  * MIT License
@@ -26,7 +26,6 @@
  */
 #endregion
 
-using KryptonExceptionDialog = Krypton.Utilities.KryptonExceptionDialog;
 
 namespace Krypton.Toolkit.Suite.Extended.Shared;
 
@@ -233,9 +232,9 @@ public class ToolTipManager
                 _stopTimer.Stop();
                 _stopTimer.Start();
             }
-            catch (Exception e)
+            catch
             {
-                KryptonExceptionDialog.Show(e, null, null);
+                // ignored
             }
         }
     }

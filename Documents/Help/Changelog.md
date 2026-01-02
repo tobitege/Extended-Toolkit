@@ -9,11 +9,15 @@
 * Implemented [#511](https://github.com/Krypton-Suite/Extended-Toolkit/issues/511), `KryptonMessageBoxExtended` Expandable Footer Feature
   - **New Expandable Footer** - Similar to Windows TaskDialog, the message box now supports an expandable footer area
   - **Collapsed/Expanded States** - Footer can start collapsed or expanded, with user toggle capability
-  - **Toggle Link** - "Show details" / "Hide details" link allows users to expand/collapse the footer
-  - **Configurable Content** - Developers can specify footer text content and initial expanded state
+  - **Toggle Button** - "Show details" / "Hide details" button allows users to expand/collapse the footer
+  - **Multiple Content Types** - Footer supports three content types:
+    - **Text** (default) - Uses `KryptonWrapLabel` for simple text content
+    - **CheckBox** - Uses `KryptonCheckBox` for options like "Remember my choice"
+    - **RichTextBox** - Uses `KryptonRichTextBox` for formatted text with configurable height
+  - **Configurable Content** - Developers can specify footer text content, content type, initial expanded state, and RichTextBox height
   - **Automatic Sizing** - Form automatically adjusts size when footer is expanded/collapsed
-  - **New API Overloads** - Added `Show` method overloads with `footerText` and `footerExpanded` parameters
-  - **Use Cases** - Ideal for displaying stack traces, error details, validation errors, system information, and additional context without cluttering the main message
+  - **New API Overloads** - Added `Show` method overloads with `footerText`, `footerExpanded`, `footerContentType`, and `footerRichTextBoxHeight` parameters
+  - **Use Cases** - Ideal for displaying stack traces, error details, validation errors, system information, user preferences, and additional context without cluttering the main message
 * Implements [#562](https://github.com/Krypton-Suite/Extended-Toolkit/issues/562), Use `Krypton.Standard.Toolkit` NuGet Packages
 * Support for .NET 11
 * Version bump `100.xx.xx.xx` -> `110.xx.xx.xx`

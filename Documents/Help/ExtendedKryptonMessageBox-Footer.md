@@ -36,6 +36,8 @@ The `KryptonMessageBoxExtended` now supports an **expandable footer** feature, s
 
 - **Expandable/Collapsible Footer** - Footer can be shown or hidden by the user via a toggle link
 - **Configurable Initial State** - Footer can start expanded or collapsed based on developer preference
+- **Multiple Content Types** - Footer supports Text (KryptonWrapLabel), CheckBox (KryptonCheckBox), or RichTextBox (KryptonRichTextBox)
+- **Configurable RichTextBox Height** - When using RichTextBox, developers can specify a custom height
 - **Automatic Sizing** - Form automatically adjusts its size when footer is expanded or collapsed
 - **Optional Feature** - Footer is completely optional; if not specified, message box behaves as before
 - **Seamless Integration** - Works with all existing message box features (icons, buttons, timeout, etc.)
@@ -63,11 +65,12 @@ public static DialogResult Show(
     string caption,
     ExtendedMessageBoxButtons buttons, 
     ExtendedKryptonMessageBoxIcon icon, 
-    string? footerText, 
+    string? footerText = null, 
     bool footerExpanded = false,
+    ExtendedKryptonMessageBoxFooterContentType footerContentType = ExtendedKryptonMessageBoxFooterContentType.Text,
+    int? footerRichTextBoxHeight = null,
     bool? showCtrlCopy = null, 
-    bool topMost = true, 
-    Font? messageboxTypeface = null
+    Font? messageBoxTypeface = null
 )
 ```
 
@@ -76,11 +79,12 @@ public static DialogResult Show(
 - `caption` - The title bar caption
 - `buttons` - Button configuration (OK, YesNo, YesNoCancel, etc.)
 - `icon` - Icon to display (Error, Warning, Information, Question, None)
-- `footerText` - **NEW**: Text content to display in the footer. If `null` or empty, footer will not be shown
+- `footerText` - **NEW**: Text content to display in the footer. If `null` or empty, footer will not be shown (unless `footerContentType` is `CheckBox`)
 - `footerExpanded` - **NEW**: If `true`, footer starts expanded; if `false`, starts collapsed (default: `false`)
+- `footerContentType` - **NEW**: Type of content to display in footer: `Text` (default), `CheckBox`, or `RichTextBox`
+- `footerRichTextBoxHeight` - **NEW**: Height in pixels for RichTextBox when `footerContentType` is `RichTextBox`. If `null`, uses default height
 - `showCtrlCopy` - Show "Ctrl+C to copy" hint in title bar
-- `topMost` - Display message box on top of other windows
-- `messageboxTypeface` - Custom font for message and footer text
+- `messageBoxTypeface` - Custom font for message and footer text
 
 **Returns:** `DialogResult` indicating which button was clicked
 
@@ -93,11 +97,12 @@ public static DialogResult Show(
     string caption,
     ExtendedMessageBoxButtons buttons, 
     ExtendedKryptonMessageBoxIcon icon, 
-    string? footerText, 
+    string? footerText = null, 
     bool footerExpanded = false,
+    ExtendedKryptonMessageBoxFooterContentType footerContentType = ExtendedKryptonMessageBoxFooterContentType.Text,
+    int? footerRichTextBoxHeight = null,
     bool? showCtrlCopy = null, 
-    bool topMost = true, 
-    Font? messageboxTypeface = null
+    Font? messageBoxTypeface = null
 )
 ```
 
@@ -152,10 +157,10 @@ Gets a value indicating whether the footer is currently visible and expanded.
 #### Simple Error with Collapsed Footer
 
 ```csharp
-using Krypton.Toolkit.Suite.Extended.Settings;
+using Krypton.Toolkit.Suite.Extended.Messagebox;
 using System.Windows.Forms;
 
-// Error message with collapsed footer containing stack trace
+// Error message with collapsed footer containing stack trace (Text content type - default)
 string mainMessage = "An error occurred while processing your request.";
 string footerText = @"Stack Trace:
    at Examples.MyClass.ProcessData()
@@ -171,7 +176,8 @@ DialogResult result = KryptonMessageBoxExtended.Show(
     ExtendedMessageBoxButtons.OK,
     ExtendedKryptonMessageBoxIcon.Error,
     footerText,
-    footerExpanded: false  // Footer starts collapsed
+    footerExpanded: false,  // Footer starts collapsed
+    footerContentType: ExtendedKryptonMessageBoxFooterContentType.Text  // Default, can be omitted
 );
 ```
 
@@ -196,7 +202,7 @@ DialogResult result = KryptonMessageBoxExtended.Show(
 );
 ```
 
-### Error with Stack Trace
+### Error with Stack Trace (Text Footer)
 
 Display comprehensive error information in a collapsed footer to avoid overwhelming users:
 
@@ -225,9 +231,56 @@ Stack Trace:
         ExtendedMessageBoxButtons.OK,
         ExtendedKryptonMessageBoxIcon.Error,
         footerText,
-        footerExpanded: false
+        footerExpanded: false,
+        footerContentType: ExtendedKryptonMessageBoxFooterContentType.Text  // Default
     );
 }
+```
+
+### Error with RichTextBox Footer
+
+For formatted error details, use RichTextBox with custom height:
+
+```csharp
+catch (Exception ex)
+{
+    string mainMessage = "An unexpected error occurred.";
+    string footerText = $@"Exception: {ex.GetType().FullName}
+Message: {ex.Message}
+Source: {ex.Source}
+
+Stack Trace:
+{ex.StackTrace}";
+
+    KryptonMessageBoxExtended.Show(
+        this,
+        mainMessage,
+        "Error",
+        ExtendedMessageBoxButtons.OK,
+        ExtendedKryptonMessageBoxIcon.Error,
+        footerText,
+        footerExpanded: false,
+        footerContentType: ExtendedKryptonMessageBoxFooterContentType.RichTextBox,
+        footerRichTextBoxHeight: 200  // Custom height in pixels
+    );
+}
+```
+
+### Question with CheckBox Footer
+
+Use a checkbox in the footer for user preferences:
+
+```csharp
+KryptonMessageBoxExtended.Show(
+    this,
+    "Do you want to save your changes before closing?",
+    "Save Changes?",
+    ExtendedMessageBoxButtons.YesNoCancel,
+    ExtendedKryptonMessageBoxIcon.Question,
+    footerText: "Remember my choice",
+    footerContentType: ExtendedKryptonMessageBoxFooterContentType.CheckBox,
+    footerExpanded: true  // Checkbox visible by default
+);
 ```
 
 ### Warning with Additional Context
@@ -354,38 +407,43 @@ The footer consists of the following components:
    - Uses `PaletteBorderStyle.HeaderPrimary`
    - Docked to top of footer panel
 
-3. **Toggle Link** (`LinkLabel`)
+3. **Toggle Button** (`KryptonButton`)
    - "Show details" when collapsed
    - "Hide details" when expanded
-   - Clickable link to toggle footer state
-   - Styled with blue link color
+   - Clickable button to toggle footer state
+   - Uses default Krypton button styling
 
-4. **Footer Text** (`KryptonWrapLabel`)
-   - Displays the footer content
-   - Uses same font as main message (configurable)
-   - Automatically wraps text
-   - Visible only when footer is expanded
+4. **Footer Content** (one of the following, based on `footerContentType`):
+   - **Text** (`KryptonWrapLabel`) - Displays text content with word wrapping
+   - **CheckBox** (`KryptonCheckBox`) - Displays a checkbox with configurable text label
+   - **RichTextBox** (`KryptonRichTextBox`) - Displays formatted text with configurable height (read-only)
+   - All content types use the same font as main message (configurable via `MessageBoxTypeface`)
+   - Content is visible only when footer is expanded
 
 ### Toggle Mechanism
 
-When the user clicks the toggle link:
+When the user clicks the toggle button:
 
 1. Footer expanded state is toggled
-2. Footer text visibility is updated
-3. Toggle link text changes ("Show details" ↔ "Hide details")
-4. Footer panel height is recalculated
+2. Footer content visibility is updated (Text, CheckBox, or RichTextBox)
+3. Toggle button text changes ("Show details" ↔ "Hide details")
+4. Footer panel height is recalculated based on content type:
+   - **Text**: Height calculated from text measurement
+   - **CheckBox**: Height based on checkbox control height
+   - **RichTextBox**: Height uses specified `footerRichTextBoxHeight` or default
 5. Form size is recalculated to accommodate new footer height
 
 ### Sizing Behavior
 
 The form automatically adjusts its size when the footer is expanded or collapsed:
 
-- **Collapsed State**: Footer height is minimal (~25 pixels) - just enough for the toggle link
-- **Expanded State**: Footer height is calculated based on:
-  - Text content length
-  - Available width (matches message box width)
-  - Minimum height of 50 pixels
-  - Padding for toggle link and borders
+- **Collapsed State**: Footer height is minimal (~30 pixels) - just enough for the toggle button
+- **Expanded State**: Footer height is calculated based on content type:
+  - **Text**: Height calculated from text measurement, wrapping, and available width
+  - **CheckBox**: Height based on checkbox control height
+  - **RichTextBox**: Height uses specified `footerRichTextBoxHeight` parameter or default (100 pixels)
+  - All types include padding for toggle button and borders
+  - Minimum height of 50 pixels applies
 
 The `UpdateSizing()` method accounts for:
 - Message panel height
@@ -410,26 +468,32 @@ The `UpdateSizing()` method accounts for:
 - Very short text that fits easily in the main message
 - Information that changes the meaning of the main message
 
-### Footer Text Guidelines
+### Footer Content Guidelines
 
 1. **Keep it Relevant**: Footer should provide additional context, not replace the main message
-2. **Structure Clearly**: Use bullet points, numbered lists, or clear sections for readability
-3. **Appropriate Length**: Very long footer text may require scrolling; consider breaking into sections
-4. **Technical vs. User-Friendly**: Consider your audience - technical details are fine for developer tools, but keep user-facing messages simple
+2. **Choose Appropriate Content Type**:
+   - Use **Text** for simple text content, stack traces, error details
+   - Use **CheckBox** for user preferences and optional settings
+   - Use **RichTextBox** for formatted text, code snippets, or longer content requiring scrolling
+3. **Structure Clearly**: Use bullet points, numbered lists, or clear sections for readability
+4. **Appropriate Length**: Very long footer text may require scrolling; consider breaking into sections or using RichTextBox
+5. **RichTextBox Height**: Set a reasonable height (typically 100-200 pixels) based on expected content length
+6. **Technical vs. User-Friendly**: Consider your audience - technical details are fine for developer tools, but keep user-facing messages simple
 
 ### Initial State Recommendations
 
 - **Start Collapsed** (`footerExpanded: false`):
-  - Stack traces and error details
-  - Technical information
-  - Optional help text
+  - Stack traces and error details (Text or RichTextBox)
+  - Technical information (Text or RichTextBox)
+  - Optional help text (Text)
   - Information that most users won't need
+  - CheckBox for optional preferences (CheckBox)
 
 - **Start Expanded** (`footerExpanded: true`):
-  - Important warnings that users should read
-  - Validation errors that need immediate attention
+  - Important warnings that users should read (Text or RichTextBox)
+  - Validation errors that need immediate attention (Text or RichTextBox)
   - Critical additional context
-  - Information that affects the user's decision
+  - CheckBox that users should see immediately (CheckBox)
 
 ### Integration with Other Features
 
@@ -437,11 +501,12 @@ The footer feature works seamlessly with all existing `KryptonMessageBoxExtended
 
 - ✅ **Icons**: All icon types (Error, Warning, Information, Question, None)
 - ✅ **Button Configurations**: All button types (OK, YesNo, YesNoCancel, etc.)
-- ✅ **Custom Fonts**: Footer uses the same `MessageBoxTypeface` as the main message
+- ✅ **Custom Fonts**: Footer content uses the same `MessageBoxTypeface` as the main message
 - ✅ **Timeout**: Footer works with timeout functionality
-- ✅ **Do Not Show Again**: Footer works with the "Do not show again" checkbox
+- ✅ **Do Not Show Again**: Footer works with the "Do not show again" checkbox (separate from footer CheckBox)
 - ✅ **Custom Button Text**: Footer works with custom button text
-- ✅ **TopMost**: Footer respects the `topMost` setting
+- ✅ **Content Types**: All three footer content types (Text, CheckBox, RichTextBox) work with all features
+- ✅ **RTL Support**: Footer supports right-to-left layouts
 
 ## Compatibility
 

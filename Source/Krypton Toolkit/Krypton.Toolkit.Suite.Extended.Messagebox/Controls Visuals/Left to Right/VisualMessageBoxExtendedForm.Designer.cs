@@ -68,6 +68,8 @@ namespace Krypton.Toolkit.Suite.Extended.Messagebox
             this._footerBorderEdge = new Krypton.Toolkit.KryptonBorderEdge();
             this._footerToggleButton = new Krypton.Toolkit.KryptonButton();
             this._footerText = new Krypton.Toolkit.KryptonWrapLabel();
+            this._footerCheckBox = new Krypton.Toolkit.KryptonCheckBox();
+            this._footerRichTextBox = new Krypton.Toolkit.KryptonRichTextBox();
             this.kpnlContent = new Krypton.Toolkit.KryptonPanel();
             this.klwlblMessageText = new Krypton.Toolkit.KryptonLinkWrapLabel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
@@ -210,6 +212,8 @@ namespace Krypton.Toolkit.Suite.Extended.Messagebox
             this._panelFooter.Controls.Add(this._footerBorderEdge);
             this._panelFooter.Controls.Add(this._footerToggleButton);
             this._panelFooter.Controls.Add(this._footerText);
+            this._panelFooter.Controls.Add(this._footerCheckBox);
+            this._panelFooter.Controls.Add(this._footerRichTextBox);
             this._panelFooter.Dock = System.Windows.Forms.DockStyle.Fill;
             this._panelFooter.Location = new System.Drawing.Point(0, 96);
             this._panelFooter.Margin = new System.Windows.Forms.Padding(0);
@@ -386,6 +390,8 @@ namespace Krypton.Toolkit.Suite.Extended.Messagebox
         private KryptonBorderEdge _footerBorderEdge;
         private KryptonButton _footerToggleButton;
         private KryptonWrapLabel _footerText;
+        private KryptonCheckBox _footerCheckBox;
+        private KryptonRichTextBox _footerRichTextBox;
         private TableLayoutPanel tableLayoutPanel2;
         private KryptonCheckBox kcbOptionalCheckBox;
         private KryptonPanel kpnlContent;

@@ -7,6 +7,7 @@
 
 ## 2026-11-xx - Build 2611 - November 2026
 
+* Implements [#562](https://github.com/Krypton-Suite/Extended-Toolkit/issues/562), Use `Krypton.Standard.Toolkit` NuGet Packages
 * Support for .NET 11
 * Version bump `100.xx.xx.xx` -> `110.xx.xx.xx`
 

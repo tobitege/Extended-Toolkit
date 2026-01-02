@@ -1,4 +1,4 @@
-﻿#region MIT License
+#region MIT License
 /*
  *
  * MIT License
@@ -52,6 +52,10 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         _button1 = new();
         _button2 = new();
         _doNotShowAgainOption = new();
+        _panelFooter = new();
+        _footerText = new();
+        _footerToggleLink = new();
+        _footerBorderEdge = new();
         ((ISupportInitialize)_panelMessage).BeginInit();
         _panelMessage.SuspendLayout();
         ((ISupportInitialize)_panelMessageText).BeginInit();
@@ -61,6 +65,8 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         ((ISupportInitialize)_messageIcon).BeginInit();
         ((ISupportInitialize)_panelButtons).BeginInit();
         _panelButtons.SuspendLayout();
+        ((ISupportInitialize)_panelFooter).BeginInit();
+        _panelFooter.SuspendLayout();
         SuspendLayout();
         // 
         // _panelMessage
@@ -198,11 +204,61 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         _doNotShowAgainOption.TabIndex = 1;
         _doNotShowAgainOption.Values.Text = @"&Do not show this again";
         // 
+        // _panelFooter
+        // 
+        _panelFooter.Dock = DockStyle.Top;
+        _panelFooter.Location = new(0, 78);
+        _panelFooter.Margin = new(0);
+        _panelFooter.Name = "_panelFooter";
+        _panelFooter.PanelBackStyle = PaletteBackStyle.PanelAlternate;
+        _panelFooter.Size = new(156, 0);
+        _panelFooter.TabIndex = 1;
+        _panelFooter.Visible = false;
+        // 
+        // _footerBorderEdge
+        // 
+        _footerBorderEdge.BorderStyle = PaletteBorderStyle.HeaderPrimary;
+        _footerBorderEdge.Dock = DockStyle.Top;
+        _footerBorderEdge.Location = new(0, 0);
+        _footerBorderEdge.Name = "_footerBorderEdge";
+        _footerBorderEdge.Size = new(156, 1);
+        _footerBorderEdge.Text = @"kryptonBorderEdge2";
+        _panelFooter.Controls.Add(_footerBorderEdge);
+        _panelFooter.Controls.Add(_footerText);
+        _panelFooter.Controls.Add(_footerToggleLink);
+        // 
+        // _footerText
+        // 
+        _footerText.AutoSize = false;
+        _footerText.Location = new(10, 25);
+        _footerText.Margin = new(0);
+        _footerText.Name = "_footerText";
+        _footerText.Size = new(136, 50);
+        _footerText.StateCommon.Font = new(@"Segoe UI", 9F);
+        _footerText.StateCommon.ShortText.Color1 = Color.FromArgb(30, 57, 91);
+        _footerText.LabelStyle = LabelStyle.NormalPanel;
+        _footerText.Text = @"Footer Text";
+        // 
+        // _footerToggleLink
+        // 
+        _footerToggleLink.AutoSize = true;
+        _footerToggleLink.Location = new(10, 5);
+        _footerToggleLink.Margin = new(0);
+        _footerToggleLink.Name = "_footerToggleLink";
+        _footerToggleLink.Size = new(80, 15);
+        _footerToggleLink.Font = new(@"Segoe UI", 9F);
+        _footerToggleLink.LinkColor = Color.FromArgb(0, 102, 204);
+        _footerToggleLink.ActiveLinkColor = Color.FromArgb(0, 102, 204);
+        _footerToggleLink.VisitedLinkColor = Color.FromArgb(0, 102, 204);
+        _footerToggleLink.Text = @"Show details";
+        _footerToggleLink.LinkClicked += FooterToggleLink_LinkClicked;
+        // 
         // KryptonMessageBox
         // 
         AutoScaleDimensions = new(6F, 13F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new(156, 78);
+        Controls.Add(_panelFooter);
         Controls.Add(_panelButtons);
         Controls.Add(_panelMessage);
         FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -225,6 +281,9 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         ((ISupportInitialize)_panelButtons).EndInit();
         _panelButtons.ResumeLayout(false);
         _panelButtons.PerformLayout();
+        ((ISupportInitialize)_panelFooter).EndInit();
+        _panelFooter.ResumeLayout(false);
+        _panelFooter.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
 
@@ -256,6 +315,13 @@ internal class ExtendedKryptonMessageBox : KryptonForm
     private string _doNotShowAgainOptionText;
     private bool _doNotShowAgainOptionResult, _showDoNotShowAgainOption, _useTimeOutOption;
     private DialogResult _defaultTimeOutResponse;
+    private KryptonPanel _panelFooter;
+    private KryptonWrapLabel _footerText;
+    private LinkLabel _footerToggleLink;
+    private KryptonBorderEdge _footerBorderEdge;
+    private string _footerTextContent;
+    private bool _showFooter;
+    private bool _footerExpanded;
     #endregion
 
     #region Static Fields
@@ -343,6 +409,38 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         get => _doNotShowAgainOptionText;
         set => _doNotShowAgainOptionText = value;
     }
+
+    /// <summary>
+    /// Gets or sets the footer text content to display in the expandable footer area.
+    /// </summary>
+    /// <value>
+    /// The footer text content. If null or empty, the footer will not be shown.
+    /// </value>
+    public string FooterText
+    {
+        get => _footerTextContent;
+        set => _footerTextContent = value;
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the footer is initially expanded.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if the footer should be expanded by default; otherwise, <c>false</c>.
+    /// </value>
+    public bool FooterExpanded
+    {
+        get => _footerExpanded;
+        set => _footerExpanded = value;
+    }
+
+    /// <summary>
+    /// Gets a value indicating whether the footer is currently visible and expanded.
+    /// </summary>
+    /// <value>
+    ///   <c>true</c> if the footer is visible and expanded; otherwise, <c>false</c>.
+    /// </value>
+    public bool IsFooterExpanded => _showFooter && _footerExpanded;
     #endregion
 
     #region Internal Classes
@@ -535,6 +633,10 @@ internal class ExtendedKryptonMessageBox : KryptonForm
 
         TimeOutTimerDelay = timeOutDelay;
 
+        _footerTextContent = footerText;
+        _showFooter = !string.IsNullOrEmpty(footerText);
+        _footerExpanded = footerExpanded;
+
         #endregion
 
         // Create the form contents
@@ -564,6 +666,8 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         SetUpTimeOutDelayTimer(useTimeOutOption, timeOutDelay, new());
 
         UpdateTextExtra(showCtrlCopy);
+
+        SetUpFooter(_showFooter, _footerTextContent, _footerExpanded);
 
         // Finally calculate and set form sizing
         UpdateSizing(showOwner);
@@ -792,6 +896,48 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         MessageBoxButtons buttons, bool? showCtrlCopy = null, bool topMost = true, Font? messageboxTypeface = null, string? button1Text = null, string? button2Text = null, string? button3Text = null)
     {
         return InternalShow(null, text, caption, buttons, KryptonMessageBoxIcon.None, MessageBoxDefaultButton.Button1, 0, null, showCtrlCopy, topMost, messageboxTypeface, false, NULL_TEXT, false, 60, 250, DialogResult.OK, button1Text, button2Text, button3Text);
+    }
+
+    /// <summary>
+    /// Displays a message box with specified text, caption, buttons, icon, and expandable footer.
+    /// </summary>
+    /// <param name="text">The text to display in the message box.</param>
+    /// <param name="caption">The text to display in the title bar of the message box.</param>
+    /// <param name="buttons">One of the System.Windows.Forms.MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+    /// <param name="icon">One of the System.Windows.Forms.KryptonMessageBoxIcon values that specifies which icon to display in the message box.</param>
+    /// <param name="footerText">The text to display in the expandable footer. If null or empty, footer will not be shown.</param>
+    /// <param name="footerExpanded">If true, the footer will be expanded by default; otherwise, it will be collapsed.</param>
+    /// <param name="showCtrlCopy">Show extraText in title. If null(default) then only when Warning or Error icon is used.</param>
+    /// <param name="topMost">Always on top of the host window.</param>
+    /// <param name="messageboxTypeface">The font displayed on the <see cref="ExtendedKryptonMessageBox"/>.</param>
+    /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
+    public static DialogResult Show(string text, string caption,
+        MessageBoxButtons buttons, KryptonMessageBoxIcon icon, string? footerText, bool footerExpanded = false,
+        bool? showCtrlCopy = null, bool topMost = true, Font? messageboxTypeface = null)
+    {
+        return InternalShow(null, text, caption, buttons, icon, MessageBoxDefaultButton.Button1, 0, null, showCtrlCopy, topMost, messageboxTypeface, false, NULL_TEXT, false, 60, 250, DialogResult.OK, null, null, null, footerText, footerExpanded);
+    }
+
+    /// <summary>
+    /// Displays a message box in front of the specified object with specified text, caption, buttons, icon, and expandable footer.
+    /// </summary>
+    /// <param name="owner">Owner of the modal dialog box.</param>
+    /// <param name="text">The text to display in the message box.</param>
+    /// <param name="caption">The text to display in the title bar of the message box.</param>
+    /// <param name="buttons">One of the System.Windows.Forms.MessageBoxButtons values that specifies which buttons to display in the message box.</param>
+    /// <param name="icon">One of the System.Windows.Forms.KryptonMessageBoxIcon values that specifies which icon to display in the message box.</param>
+    /// <param name="footerText">The text to display in the expandable footer. If null or empty, footer will not be shown.</param>
+    /// <param name="footerExpanded">If true, the footer will be expanded by default; otherwise, it will be collapsed.</param>
+    /// <param name="showCtrlCopy">Show extraText in title. If null(default) then only when Warning or Error icon is used.</param>
+    /// <param name="topMost">Always on top of the host window.</param>
+    /// <param name="messageboxTypeface">The font displayed on the <see cref="ExtendedKryptonMessageBox"/>.</param>
+    /// <returns>One of the System.Windows.Forms.DialogResult values.</returns>
+    public static DialogResult Show(IWin32Window owner,
+        string text, string caption,
+        MessageBoxButtons buttons, KryptonMessageBoxIcon icon, string? footerText, bool footerExpanded = false,
+        bool? showCtrlCopy = null, bool topMost = true, Font? messageboxTypeface = null)
+    {
+        return InternalShow(owner, text, caption, buttons, icon, MessageBoxDefaultButton.Button1, 0, null, showCtrlCopy, topMost, messageboxTypeface, false, NULL_TEXT, false, 60, 250, DialogResult.OK, null, null, null, footerText, footerExpanded);
     }
 
     /// <summary>
@@ -1060,7 +1206,8 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         bool showDoNotShowAgainOption = false, string doNotShowAgainOptionText = "Do n&ot show again",
         bool useTimeOutOption = false, int timeOut = 60, int timeOutDelay = 250,
         DialogResult defaultTimeOutResponse = DialogResult.OK,
-        string? button1Text = null, string? button2Text = null, string? button3Text = null)
+        string? button1Text = null, string? button2Text = null, string? button3Text = null,
+        string? footerText = null, bool footerExpanded = false)
     {
         // Check if trying to show a message box from a non-interactive process, this is not possible
         if (!SystemInformation.UserInteractive && (options & (MessageBoxOptions.ServiceNotification | MessageBoxOptions.DefaultDesktopOnly)) == 0)
@@ -1089,7 +1236,7 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         }
 
         // Show message box window as a modal dialog and then dispose of it afterwards
-        using (ExtendedKryptonMessageBox ekmb = new(showOwner, text, caption, buttons, icon, defaultButton, options, helpInformation, showCtrlCopy, topMost, messageboxTypeface, showDoNotShowAgainOption, doNotShowAgainOptionText, useTimeOutOption, timeOut, timeOutDelay, defaultTimeOutResponse, button1Text, button2Text, button3Text))
+        using (ExtendedKryptonMessageBox ekmb = new(showOwner, text, caption, buttons, icon, defaultButton, options, helpInformation, showCtrlCopy, topMost, messageboxTypeface, showDoNotShowAgainOption, doNotShowAgainOptionText, useTimeOutOption, timeOut, timeOutDelay, defaultTimeOutResponse, button1Text, button2Text, button3Text, footerText, footerExpanded))
         {
             ekmb.StartPosition = showOwner == null ? FormStartPosition.CenterScreen : FormStartPosition.CenterParent;
 
@@ -1441,14 +1588,107 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         timeOutTimer.Tick += new(TimeOutTimer_Tick);
     }
 
+    /// <summary>
+    /// Sets up the expandable footer with the specified text and initial expanded state.
+    /// </summary>
+    /// <param name="showFooter">If true, the footer will be visible; otherwise, it will be hidden.</param>
+    /// <param name="footerText">The text content to display in the footer.</param>
+    /// <param name="expanded">If true, the footer will be expanded initially; otherwise, it will be collapsed.</param>
+    private void SetUpFooter(bool showFooter, string footerText, bool expanded)
+    {
+        _panelFooter.Visible = showFooter;
+        _footerToggleLink.Visible = showFooter;
+
+        if (!showFooter)
+        {
+            _panelFooter.Height = 0;
+            return;
+        }
+
+        // Set footer text
+        _footerText.Text = footerText ?? string.Empty;
+        _footerText.StateCommon.Font = MessageBoxTypeface;
+
+        // Set initial expanded state
+        _footerExpanded = expanded;
+        UpdateFooterExpandedState();
+    }
+
+    /// <summary>
+    /// Updates the footer expanded state, adjusting visibility and toggle link text.
+    /// </summary>
+    private void UpdateFooterExpandedState()
+    {
+        if (!_showFooter)
+        {
+            return;
+        }
+
+        _footerText.Visible = _footerExpanded;
+
+        // Update toggle link text
+        _footerToggleLink.Text = _footerExpanded ? @"Hide details" : @"Show details";
+
+        // Calculate footer height based on expanded state
+        if (_footerExpanded)
+        {
+            // Measure the footer text to determine required height
+            using (Graphics g = CreateGraphics())
+            {
+                SizeF textSize = g.MeasureString(_footerText.Text, _footerText.Font, _footerText.Width);
+                int footerHeight = (int)Math.Ceiling(textSize.Height) + 35; // Add padding for toggle link and borders
+                _panelFooter.Height = Math.Max(footerHeight, 50); // Minimum height
+            }
+        }
+        else
+        {
+            // Collapsed state - just show the toggle link
+            _panelFooter.Height = 25;
+        }
+
+        // Recalculate form size (owner can be null, UpdateSizing handles it)
+        UpdateSizing(Owner);
+    }
+
+    /// <summary>
+    /// Handles the footer toggle link click event to expand or collapse the footer.
+    /// </summary>
+    private void FooterToggleLink_LinkClicked(object sender, EventArgs e)
+    {
+        _footerExpanded = !_footerExpanded;
+        UpdateFooterExpandedState();
+    }
+
     private void UpdateSizing(IWin32Window showOwner)
     {
         Size messageSizing = UpdateMessageSizing(showOwner);
         Size buttonsSizing = UpdateButtonsSizing();
+        Size footerSizing = UpdateFooterSizing();
 
         // Size of window is calculated from the client area
-        ClientSize = new(Math.Max(messageSizing.Width, buttonsSizing.Width),
-            messageSizing.Height + buttonsSizing.Height);
+        ClientSize = new(Math.Max(Math.Max(messageSizing.Width, buttonsSizing.Width), footerSizing.Width),
+            messageSizing.Height + buttonsSizing.Height + footerSizing.Height);
+    }
+
+    /// <summary>
+    /// Updates the footer panel sizing based on its content and expanded state.
+    /// </summary>
+    /// <returns>The size of the footer panel.</returns>
+    private Size UpdateFooterSizing()
+    {
+        if (!_showFooter)
+        {
+            return Size.Empty;
+        }
+
+        // Calculate width to match message box width
+        int footerWidth = Math.Max(_panelMessage.Width, _panelButtons.Width);
+
+        // Height is already set in UpdateFooterExpandedState, but ensure minimum width
+        _panelFooter.Width = footerWidth;
+        _footerText.Width = footerWidth - 20; // Account for padding
+
+        return new Size(footerWidth, _panelFooter.Height);
     }
 
     private Size UpdateMessageSizing(IWin32Window showOwner)

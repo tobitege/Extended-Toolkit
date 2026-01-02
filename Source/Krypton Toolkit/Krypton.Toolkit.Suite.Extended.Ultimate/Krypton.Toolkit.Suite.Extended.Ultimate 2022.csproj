@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<!-- Use centralized TFM configuration from Directory.Build.props -->
@@ -201,6 +201,7 @@
 	<!-- Ultimate projects use a different license file location -->
 	<ItemGroup>
 		<None Include="..\_shared-assets\License.txt" Pack="true" PackagePath="" Link="License\License.txt" />
+		<None Include="..\..\..\Documents\License\License.md" Link="License.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 
 	<!--Binary/Documentation Output-->

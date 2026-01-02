@@ -27,7 +27,7 @@
 
 #endregion
 
-using Krypton.Toolkit.Suite.Extended.Settings;
+using Krypton.Toolkit.Suite.Extended.Messagebox;
 using System.Windows.Forms;
 
 namespace Examples
@@ -79,12 +79,12 @@ Exception Details:
    Source: Examples
    TargetSite: Void btnErrorWithFooter_Click(System.Object, System.EventArgs)";
 
-            ExtendedKryptonMessageBox.Show(
+            KryptonMessageBoxExtended.Show(
                 this,
                 mainMessage,
                 @"Error",
-                MessageBoxButtons.OK,
-                KryptonMessageBoxIcon.Error,
+                ExtendedMessageBoxButtons.OK,
+                ExtendedKryptonMessageBoxIcon.Error,
                 footerText,
                 footerExpanded: false  // Footer starts collapsed
             );
@@ -105,12 +105,12 @@ Exception Details:
 
 For more information, visit: https://example.com/help";
 
-            ExtendedKryptonMessageBox.Show(
+            KryptonMessageBoxExtended.Show(
                 this,
                 mainMessage,
                 @"Warning",
-                MessageBoxButtons.YesNo,
-                KryptonMessageBoxIcon.Warning,
+                ExtendedMessageBoxButtons.YesNo,
+                ExtendedKryptonMessageBoxIcon.Warning,
                 footerText,
                 footerExpanded: true  // Footer starts expanded
             );
@@ -132,12 +132,12 @@ Format: PDF/A-1b
 Checksum: A3F9B2C1D4E5F6A7B8C9D0E1F2A3B4C5
 Timestamp: 2026-01-15 14:32:18 UTC";
 
-            ExtendedKryptonMessageBox.Show(
+            KryptonMessageBoxExtended.Show(
                 this,
                 mainMessage,
                 @"Information",
-                MessageBoxButtons.OK,
-                KryptonMessageBoxIcon.Information,
+                ExtendedMessageBoxButtons.OK,
+                ExtendedKryptonMessageBoxIcon.Information,
                 footerText,
                 footerExpanded: false
             );
@@ -160,12 +160,12 @@ Keyboard Shortcuts:
 • Ctrl+W: Close
 • Esc: Cancel";
 
-            ExtendedKryptonMessageBox.Show(
+            KryptonMessageBoxExtended.Show(
                 this,
                 mainMessage,
                 @"Save Changes?",
-                MessageBoxButtons.YesNoCancel,
-                KryptonMessageBoxIcon.Question,
+                ExtendedMessageBoxButtons.YesNoCancel,
+                ExtendedKryptonMessageBoxIcon.Question,
                 footerText,
                 footerExpanded: false
             );
@@ -199,12 +199,12 @@ Troubleshooting Steps:
 
 For additional help, contact your system administrator.";
 
-            ExtendedKryptonMessageBox.Show(
+            KryptonMessageBoxExtended.Show(
                 this,
                 mainMessage,
                 @"Database Error",
-                MessageBoxButtons.OK,
-                KryptonMessageBoxIcon.Error,
+                ExtendedMessageBoxButtons.OK,
+                ExtendedKryptonMessageBoxIcon.Error,
                 footerText,
                 footerExpanded: false
             );
@@ -226,12 +226,12 @@ For additional help, contact your system administrator.";
 
 Please review each field and correct the errors before proceeding.";
 
-            ExtendedKryptonMessageBox.Show(
+            KryptonMessageBoxExtended.Show(
                 this,
                 mainMessage,
                 @"Validation Failed",
-                MessageBoxButtons.OK,
-                KryptonMessageBoxIcon.Warning,
+                ExtendedMessageBoxButtons.OK,
+                ExtendedKryptonMessageBoxIcon.Warning,
                 footerText,
                 footerExpanded: true  // Expanded to show all errors immediately
             );
@@ -258,12 +258,12 @@ Version: 1.0.0.0
 Build Date: {System.DateTime.Now:yyyy-MM-dd}
 Configuration: Debug";
 
-            ExtendedKryptonMessageBox.Show(
+            KryptonMessageBoxExtended.Show(
                 this,
                 mainMessage,
                 @"System Information",
-                MessageBoxButtons.OK,
-                KryptonMessageBoxIcon.Information,
+                ExtendedMessageBoxButtons.OK,
+                ExtendedKryptonMessageBoxIcon.Information,
                 footerText,
                 footerExpanded: false
             );
@@ -275,12 +275,12 @@ Configuration: Debug";
         /// </summary>
         private void btnNoFooter_Click(object sender, EventArgs e)
         {
-            ExtendedKryptonMessageBox.Show(
+            KryptonMessageBoxExtended.Show(
                 this,
                 @"This is a standard message box without a footer.",
                 @"Standard Message",
-                MessageBoxButtons.OK,
-                KryptonMessageBoxIcon.Information
+                ExtendedMessageBoxButtons.OK,
+                ExtendedKryptonMessageBoxIcon.Information
             );
         }
 

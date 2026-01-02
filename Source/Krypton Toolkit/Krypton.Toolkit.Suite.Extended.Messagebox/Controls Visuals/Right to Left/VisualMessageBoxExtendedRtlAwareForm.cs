@@ -1,4 +1,4 @@
-﻿#region MIT License
+#region MIT License
 /*
  * MIT License
  *
@@ -130,6 +130,10 @@ internal partial class VisualMessageBoxExtendedRtlAwareForm : KryptonForm
 
     private readonly PaletteRelativeAlign _richTextBoxTextAlignment;
 
+    private readonly string? _footerText;
+
+    private readonly bool _footerExpanded;
+
     #endregion
 
     #region Identity
@@ -175,7 +179,9 @@ internal partial class VisualMessageBoxExtendedRtlAwareForm : KryptonForm
         bool? useOptionalCheckBoxThreeState,
         bool? useTimeOut,
         int? timeOut,
-        DialogResult? timerResult)
+        DialogResult? timerResult,
+        string? footerText = null,
+        bool footerExpanded = false)
     {
         // Store incoming values
         _text = text;
@@ -238,6 +244,8 @@ internal partial class VisualMessageBoxExtendedRtlAwareForm : KryptonForm
         UpdateContentLinkArea(contentLinkArea);
 
         SetupOptionalCheckBox();
+
+        SetupFooter(_footerText, _footerExpanded);
 
         // Finally calculate and set form sizing
         UpdateSizing(showOwner);
@@ -692,10 +700,32 @@ internal partial class VisualMessageBoxExtendedRtlAwareForm : KryptonForm
     {
         Size messageSizing = UpdateMessageSizing(showOwner);
         Size buttonsSizing = UpdateButtonsSizing();
+        Size footerSizing = UpdateFooterSizing();
 
         // Size of window is calculated from the client area
-        ClientSize = new Size(Math.Max(messageSizing.Width, buttonsSizing.Width),
-            messageSizing.Height + buttonsSizing.Height);
+        ClientSize = new Size(Math.Max(Math.Max(messageSizing.Width, buttonsSizing.Width), footerSizing.Width),
+            messageSizing.Height + buttonsSizing.Height + footerSizing.Height);
+    }
+
+    /// <summary>
+    /// Updates the footer panel sizing based on its content and expanded state.
+    /// </summary>
+    /// <returns>The size of the footer panel.</returns>
+    private Size UpdateFooterSizing()
+    {
+        if (!_panelFooter.Visible)
+        {
+            return Size.Empty;
+        }
+
+        // Calculate width to match message box width
+        int footerWidth = Math.Max(UpdateMessageSizing(Owner).Width, UpdateButtonsSizing().Width);
+
+        // Height is already set in UpdateFooterExpandedState, but ensure minimum width
+        _panelFooter.Width = footerWidth;
+        _footerText.Width = footerWidth - 20; // Account for padding
+
+        return new Size(footerWidth, _panelFooter.Height);
     }
 
     private Size UpdateMessageSizing(IWin32Window? showOwner)
@@ -1025,6 +1055,82 @@ internal partial class VisualMessageBoxExtendedRtlAwareForm : KryptonForm
         kcbOptionalCheckBox.Text = _checkBoxText;
 
         kcbOptionalCheckBox.ThreeState = _useOptionalCheckBoxThreeState;
+    }
+
+    /// <summary>
+    /// Sets up the expandable footer with the specified text and initial expanded state.
+    /// </summary>
+    /// <param name="footerText">The text content to display in the footer. If null or empty, footer will not be shown.</param>
+    /// <param name="expanded">If true, the footer will be expanded initially; otherwise, it will be collapsed.</param>
+    private void SetupFooter(string? footerText, bool expanded)
+    {
+        bool showFooter = !string.IsNullOrEmpty(footerText);
+        _panelFooter.Visible = showFooter;
+        _footerToggleButton.Visible = showFooter;
+
+        if (!showFooter)
+        {
+            _panelFooter.Height = 0;
+            return;
+        }
+
+        // Set footer text
+        _footerText.Text = footerText ?? string.Empty;
+        if (_messageBoxTypeface != null)
+        {
+            _footerText.StateCommon.Font = _messageBoxTypeface;
+        }
+
+        // Set initial expanded state
+        UpdateFooterExpandedState(expanded);
+    }
+
+    /// <summary>
+    /// Updates the footer expanded state, adjusting visibility and toggle button text.
+    /// </summary>
+    /// <param name="expanded">If true, footer is expanded; otherwise, collapsed.</param>
+    private void UpdateFooterExpandedState(bool expanded)
+    {
+        if (!_panelFooter.Visible)
+        {
+            return;
+        }
+
+        _footerText.Visible = expanded;
+
+        // Update toggle button text
+        _footerToggleButton.Values.Text = expanded ? @"Hide details" : @"Show details";
+
+        // Calculate footer height based on expanded state
+        if (expanded)
+        {
+            // Measure the footer text to determine required height
+            using (Graphics g = CreateGraphics())
+            {
+                Font footerFont = _footerText.Font ?? _messageBoxTypeface ?? KryptonManager.CurrentGlobalPalette.BaseFont;
+                SizeF textSize = g.MeasureString(_footerText.Text, footerFont, _footerText.Width);
+                int footerHeight = (int)Math.Ceiling(textSize.Height) + 40; // Add padding for toggle button and borders
+                _panelFooter.Height = Math.Max(footerHeight, 50); // Minimum height
+            }
+        }
+        else
+        {
+            // Collapsed state - just show the toggle button
+            _panelFooter.Height = 30;
+        }
+
+        // Recalculate form size (owner can be null, UpdateSizing handles it)
+        IWin32Window? owner = Owner;
+        UpdateSizing(owner);
+    }
+
+    /// <summary>
+    /// Handles the footer toggle button click event to expand or collapse the footer.
+    /// </summary>
+    private void FooterToggleButton_Click(object sender, EventArgs e)
+    {
+        bool currentExpanded = _footerText.Visible;
+        UpdateFooterExpandedState(!currentExpanded);
     }
 
     internal static bool ReturnCheckBoxCheckedValue()

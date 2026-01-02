@@ -1,8 +1,8 @@
-# ExtendedKryptonMessageBox - Expandable Footer Feature
+# KryptonMessageBoxExtended - Expandable Footer Feature
 
 ## Overview
 
-The `ExtendedKryptonMessageBox` now supports an **expandable footer** feature, similar to Windows TaskDialog. This allows developers to display additional information (such as error details, stack traces, or help text) in a collapsible footer area that users can expand or collapse as needed.
+The `KryptonMessageBoxExtended` now supports an **expandable footer** feature, similar to Windows TaskDialog. This allows developers to display additional information (such as error details, stack traces, or help text) in a collapsible footer area that users can expand or collapse as needed.
 
 ## Table of Contents
 
@@ -61,8 +61,8 @@ The expandable footer feature is available through new `Show` method overloads t
 public static DialogResult Show(
     string text, 
     string caption,
-    MessageBoxButtons buttons, 
-    KryptonMessageBoxIcon icon, 
+    ExtendedMessageBoxButtons buttons, 
+    ExtendedKryptonMessageBoxIcon icon, 
     string? footerText, 
     bool footerExpanded = false,
     bool? showCtrlCopy = null, 
@@ -91,8 +91,8 @@ public static DialogResult Show(
     IWin32Window owner,
     string text, 
     string caption,
-    MessageBoxButtons buttons, 
-    KryptonMessageBoxIcon icon, 
+    ExtendedMessageBoxButtons buttons, 
+    ExtendedKryptonMessageBoxIcon icon, 
     string? footerText, 
     bool footerExpanded = false,
     bool? showCtrlCopy = null, 
@@ -106,7 +106,7 @@ public static DialogResult Show(
 
 ### Properties
 
-The following properties are available on `ExtendedKryptonMessageBox` instances (though typically accessed through static methods):
+The following properties are available on `KryptonMessageBoxExtended` instances (though typically accessed through static methods):
 
 #### FooterText
 
@@ -164,12 +164,12 @@ string footerText = @"Stack Trace:
 Exception: System.InvalidOperationException
 Message: The operation cannot be completed.";
 
-DialogResult result = ExtendedKryptonMessageBox.Show(
+DialogResult result = KryptonMessageBoxExtended.Show(
     this,
     mainMessage,
     "Error",
-    MessageBoxButtons.OK,
-    KryptonMessageBoxIcon.Error,
+    ExtendedMessageBoxButtons.OK,
+    ExtendedKryptonMessageBoxIcon.Error,
     footerText,
     footerExpanded: false  // Footer starts collapsed
 );
@@ -185,12 +185,12 @@ string footerText = @"Additional Information:
 • A system restart may be required
 • Previous settings will be backed up automatically";
 
-DialogResult result = ExtendedKryptonMessageBox.Show(
+DialogResult result = KryptonMessageBoxExtended.Show(
     this,
     mainMessage,
     "Warning",
-    MessageBoxButtons.YesNo,
-    KryptonMessageBoxIcon.Warning,
+    ExtendedMessageBoxButtons.YesNo,
+    ExtendedKryptonMessageBoxIcon.Warning,
     footerText,
     footerExpanded: true  // Footer starts expanded
 );
@@ -218,12 +218,12 @@ Stack Trace:
 
 {(ex.InnerException != null ? $"\nInner Exception:\n{ex.InnerException}" : "")}";
 
-    ExtendedKryptonMessageBox.Show(
+    KryptonMessageBoxExtended.Show(
         this,
         mainMessage,
         "Error",
-        MessageBoxButtons.OK,
-        KryptonMessageBoxIcon.Error,
+        ExtendedMessageBoxButtons.OK,
+        ExtendedKryptonMessageBoxIcon.Error,
         footerText,
         footerExpanded: false
     );
@@ -244,12 +244,12 @@ string footerText = @"Additional Information:
 
 For more information, visit: https://example.com/help";
 
-DialogResult result = ExtendedKryptonMessageBox.Show(
+DialogResult result = KryptonMessageBoxExtended.Show(
     this,
     mainMessage,
     "Warning",
-    MessageBoxButtons.YesNo,
-    KryptonMessageBoxIcon.Warning,
+    ExtendedMessageBoxButtons.YesNo,
+    ExtendedKryptonMessageBoxIcon.Warning,
     footerText,
     footerExpanded: true
 );
@@ -270,12 +270,12 @@ Format: {fileFormat}
 Checksum: {checksum}
 Timestamp: {DateTime.UtcNow:yyyy-MM-dd HH:mm:ss} UTC";
 
-ExtendedKryptonMessageBox.Show(
+KryptonMessageBoxExtended.Show(
     this,
     mainMessage,
     "Information",
-    MessageBoxButtons.OK,
-    KryptonMessageBoxIcon.Information,
+    ExtendedMessageBoxButtons.OK,
+    ExtendedKryptonMessageBoxIcon.Information,
     footerText,
     footerExpanded: false
 );
@@ -297,12 +297,12 @@ Keyboard Shortcuts:
 • Ctrl+W: Close
 • Esc: Cancel";
 
-DialogResult result = ExtendedKryptonMessageBox.Show(
+DialogResult result = KryptonMessageBoxExtended.Show(
     this,
     mainMessage,
     "Save Changes?",
-    MessageBoxButtons.YesNoCancel,
-    KryptonMessageBoxIcon.Question,
+    ExtendedMessageBoxButtons.YesNoCancel,
+    ExtendedKryptonMessageBoxIcon.Question,
     footerText,
     footerExpanded: false
 );
@@ -327,12 +327,12 @@ string footerText = "Validation Errors:\n" +
     string.Join("\n", validationErrors.Select((err, idx) => $"{idx + 1}. {err}")) +
     "\n\nPlease review each field and correct the errors before proceeding.";
 
-ExtendedKryptonMessageBox.Show(
+KryptonMessageBoxExtended.Show(
     this,
     mainMessage,
     "Validation Failed",
-    MessageBoxButtons.OK,
-    KryptonMessageBoxIcon.Warning,
+    ExtendedMessageBoxButtons.OK,
+    ExtendedKryptonMessageBoxIcon.Warning,
     footerText,
     footerExpanded: true  // Expanded to show all errors immediately
 );
@@ -433,7 +433,7 @@ The `UpdateSizing()` method accounts for:
 
 ### Integration with Other Features
 
-The footer feature works seamlessly with all existing `ExtendedKryptonMessageBox` features:
+The footer feature works seamlessly with all existing `KryptonMessageBoxExtended` features:
 
 - ✅ **Icons**: All icon types (Error, Warning, Information, Question, None)
 - ✅ **Button Configurations**: All button types (OK, YesNo, YesNoCancel, etc.)
@@ -466,11 +466,11 @@ The expandable footer feature is available in all supported framework versions:
 using Krypton.Toolkit.Suite.Extended.Settings;
 ```
 
-The `ExtendedKryptonMessageBox` class is located in the `Krypton.Toolkit.Suite.Extended.Settings` namespace.
+The `KryptonMessageBoxExtended` class is located in the `Krypton.Toolkit.Suite.Extended.Settings` namespace.
 
 ## See Also
 
-- [ExtendedKryptonMessageBox API Documentation](../../Source/Krypton%20Toolkit/Krypton.Toolkit.Suite.Extended.Settings/Classes/Other/ExtendedKryptonMessageBox.cs)
+- [KryptonMessageBoxExtended API Documentation](../../Source/Krypton%20Toolkit/Krypton.Toolkit.Suite.Extended.Settings/Classes/Other/KryptonMessageBoxExtended.cs)
 - [MessageBox Footer Example](../../Source/Krypton%20Toolkit/Examples/MessageBoxFooterExample.cs)
 - [Issue #511 - Feature Request](https://github.com/Krypton-Suite/Extended-Toolkit/issues/511)
 - [Changelog](Changelog.md)

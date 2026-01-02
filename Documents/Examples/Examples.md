@@ -47,7 +47,7 @@
 
 ### Expandable Footer Feature
 
-The `ExtendedKryptonMessageBox` now supports an **expandable footer** feature, similar to Windows TaskDialog. This allows displaying additional information (error details, stack traces, help text) in a collapsible footer area.
+The `KryptonMessageBoxExtended` now supports an **expandable footer** feature, similar to Windows TaskDialog. This allows displaying additional information (error details, stack traces, help text) in a collapsible footer area.
 
 **Key Features:**
 - Collapsible footer with "Show details" / "Hide details" toggle
@@ -57,19 +57,21 @@ The `ExtendedKryptonMessageBox` now supports an **expandable footer** feature, s
 
 **Example Usage:**
 ```csharp
-ExtendedKryptonMessageBox.Show(
+using Krypton.Toolkit.Suite.Extended.Messagebox;
+
+KryptonMessageBoxExtended.Show(
     this,
     "An error occurred while processing your request.",
     "Error",
-    MessageBoxButtons.OK,
-    KryptonMessageBoxIcon.Error,
-    "Stack Trace:\n   at Examples.MyClass.ProcessData()\n   ...",
+    ExtendedMessageBoxButtons.OK,
+    ExtendedKryptonMessageBoxIcon.Error,
+    footerText: "Stack Trace:\n   at Examples.MyClass.ProcessData()\n   ...",
     footerExpanded: false  // Footer starts collapsed
 );
 ```
 
 **Comprehensive Documentation:**
-- [ExtendedKryptonMessageBox Footer Documentation](../Help/ExtendedKryptonMessageBox-Footer.md)
+- [KryptonMessageBoxExtended Footer Documentation](../Help/ExtendedKryptonMessageBox-Footer.md)
 - [MessageBox Footer Example Source Code](https://github.com/Krypton-Suite/Extended-Toolkit/tree/version-next/Source/Krypton%20Toolkit/Examples/MessageBoxFooterExample.cs)
 
 ## Krypton Colour Mixer

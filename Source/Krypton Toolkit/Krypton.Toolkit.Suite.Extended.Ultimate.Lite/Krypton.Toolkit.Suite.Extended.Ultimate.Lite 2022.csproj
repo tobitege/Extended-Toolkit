@@ -255,6 +255,46 @@
 		<IncludeBuildOutput>false</IncludeBuildOutput>
 	</PropertyGroup>
 
+	<!-- Extended Toolkit Package Dependencies -->
+	<!-- These are added dynamically during pack operations to satisfy NuGet dependency resolution -->
+	<!-- IncludeAssets="none" and PrivateAssets="All" prevent NuGet from downloading these packages -->
+	<!-- The DLLs are already embedded via ProjectReferences -->
+	<!-- Only add these during pack operations (not during restore/build) to avoid version resolution errors -->
+	<!-- Skip during restore by checking if Restore target is running -->
+	<Target Name="AddExtendedToolkitPackageReferencesForPack" BeforeTargets="GenerateNuspec" Condition="'$(IsRestoring)' != 'true' AND ('$(IsPackaging)' == 'true' OR '$(GeneratePackageOnBuild)' == 'true')">
+		<ItemGroup>
+			<!-- Core & Foundation - Required by other packages -->
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Core" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Release'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Core.Nightly" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Nightly'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Core.Canary" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Canary'" />
+			
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Common" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Release'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Common.Nightly" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Nightly'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Common.Canary" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Canary'" />
+			
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Shared" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Release'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Shared.Nightly" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Nightly'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Shared.Canary" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Canary'" />
+			
+			<!-- Packages mentioned in the error that require Core -->
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Buttons" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Release'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Buttons.Nightly" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Nightly'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Buttons.Canary" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Canary'" />
+			
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Data.Visualisation" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Release'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Data.Visualisation.Nightly" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Nightly'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Data.Visualisation.Canary" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Canary'" />
+			
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Drawing.Utilities" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Release'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Drawing.Utilities.Nightly" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Nightly'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Drawing.Utilities.Canary" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Canary'" />
+			
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Language.Model" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Release'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Language.Model.Nightly" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Nightly'" />
+			<PackageReference Include="Krypton.Toolkit.Suite.Extended.Language.Model.Canary" Version="$(PackageVersion)" IncludeAssets="none" PrivateAssets="All" Condition="'$(Configuration)' == 'Canary'" />
+		</ItemGroup>
+	</Target>
+
 	<!-- Note: UltimateLitePackageInfo.cs is automatically included by the SDK -->
 
 </Project>

@@ -6,6 +6,7 @@
 
 ## 2026-11-xx - Build 2611 - November 2026
 
+* Resolved [#156](https://github.com/Krypton-Suite/Extended-Toolkit/issues/156), `KryptonOutlookGrid` Group Header graphic issue with scaling at 150%
 * Implemented [#511](https://github.com/Krypton-Suite/Extended-Toolkit/issues/511), `KryptonMessageBoxExtended` Expandable Footer Feature
   - **New Expandable Footer** - Similar to Windows TaskDialog, the message box now supports an expandable footer area
   - **Collapsed/Expanded States** - Footer can start collapsed or expanded, with user toggle capability

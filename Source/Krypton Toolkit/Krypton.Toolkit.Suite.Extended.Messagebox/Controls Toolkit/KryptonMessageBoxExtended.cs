@@ -523,7 +523,7 @@ public static class KryptonMessageBoxExtended
                 string.Empty, string.Empty, string.Empty,
                 ExtendedKryptonMessageBoxMessageContainerType.Normal,
                 null, null, null, null, ContentAlignment.MiddleLeft, null, null,
-                null, null, null, null, null, null, null, null, null,
+                null, null, null, null,
                 footerText, footerExpanded, footerContentType, footerRichTextBoxHeight);
 
     /// <summary>Shows a <seealso cref="KryptonMessageBoxExtended"/> with expandable footer.</summary>
@@ -556,7 +556,7 @@ public static class KryptonMessageBoxExtended
                 string.Empty, string.Empty, string.Empty,
                 ExtendedKryptonMessageBoxMessageContainerType.Normal,
                 null, null, null, null, ContentAlignment.MiddleLeft, null, null,
-                null, null, null, null, null, null, null, null, null,
+                null, null, null, null,
                 footerText, footerExpanded, footerContentType, footerRichTextBoxHeight);
 
     #endregion
@@ -596,7 +596,9 @@ public static class KryptonMessageBoxExtended
         int? timeOutInterval,
         DialogResult? timerResult,
         string? footerText = null,
-        bool footerExpanded = false)
+        bool footerExpanded = false,
+        ExtendedKryptonMessageBoxFooterContentType footerContentType = ExtendedKryptonMessageBoxFooterContentType.Text,
+        int? footerRichTextBoxHeight = null)
     {
         IWin32Window? showOwner = ValidateOptions(owner, options, helpInfo);
 
@@ -766,7 +768,9 @@ public static class KryptonMessageBoxExtended
         int? timeOutInterval,
         DialogResult? timerResult,
         string? footerText = null,
-        bool footerExpanded = false)
+        bool footerExpanded = false,
+        ExtendedKryptonMessageBoxFooterContentType footerContentType = ExtendedKryptonMessageBoxFooterContentType.Text,
+        int? footerRichTextBoxHeight = null)
     {
         IWin32Window? showOwner = ValidateOptions(owner, options, helpInfo);
 

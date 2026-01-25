@@ -67,7 +67,7 @@ namespace Krypton.Toolkit.Suite.Extended.Messagebox
             this._panelFooter = new Krypton.Toolkit.KryptonPanel();
             this._footerBorderEdge = new Krypton.Toolkit.KryptonBorderEdge();
             this._footerToggleButton = new Krypton.Toolkit.KryptonButton();
-            this._footerText = new Krypton.Toolkit.KryptonWrapLabel();
+            this._footerWrapLabel = new Krypton.Toolkit.KryptonWrapLabel();
             this._footerCheckBox = new Krypton.Toolkit.KryptonCheckBox();
             this._footerRichTextBox = new Krypton.Toolkit.KryptonRichTextBox();
             this.kpnlContent = new Krypton.Toolkit.KryptonPanel();
@@ -211,7 +211,7 @@ namespace Krypton.Toolkit.Suite.Extended.Messagebox
             this.tableLayoutPanel1.SetColumnSpan(this._panelFooter, 2);
             this._panelFooter.Controls.Add(this._footerBorderEdge);
             this._panelFooter.Controls.Add(this._footerToggleButton);
-            this._panelFooter.Controls.Add(this._footerText);
+            this._panelFooter.Controls.Add(this._footerWrapLabel);
             this._panelFooter.Controls.Add(this._footerCheckBox);
             this._panelFooter.Controls.Add(this._footerRichTextBox);
             this._panelFooter.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -244,18 +244,18 @@ namespace Krypton.Toolkit.Suite.Extended.Messagebox
             this._footerToggleButton.Values.Text = "Show details";
             this._footerToggleButton.Click += new System.EventHandler(this.FooterToggleButton_Click);
             // 
-            // _footerText
+            // _footerWrapLabel
             // 
-            this._footerText.AutoSize = false;
-            this._footerText.Location = new System.Drawing.Point(10, 35);
-            this._footerText.Margin = new System.Windows.Forms.Padding(0);
-            this._footerText.Name = "_footerText";
-            this._footerText.Size = new System.Drawing.Size(176, 50);
-            this._footerText.StateCommon.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this._footerText.StateCommon.ShortText.Color1 = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
-            this._footerText.LabelStyle = Krypton.Toolkit.LabelStyle.NormalPanel;
-            this._footerText.Text = "Footer Text";
-            this._footerText.Visible = false;
+            this._footerWrapLabel.AutoSize = false;
+            this._footerWrapLabel.Location = new System.Drawing.Point(10, 35);
+            this._footerWrapLabel.Margin = new System.Windows.Forms.Padding(0);
+            this._footerWrapLabel.Name = "_footerWrapLabel";
+            this._footerWrapLabel.Size = new System.Drawing.Size(176, 50);
+            this._footerWrapLabel.StateCommon.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this._footerWrapLabel.StateCommon.TextColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(57)))), ((int)(((byte)(91)))));
+            this._footerWrapLabel.LabelStyle = Krypton.Toolkit.LabelStyle.NormalPanel;
+            this._footerWrapLabel.Text = "Footer Text";
+            this._footerWrapLabel.Visible = false;
             // 
             // _messageIcon
             // 
@@ -389,7 +389,7 @@ namespace Krypton.Toolkit.Suite.Extended.Messagebox
         private KryptonPanel _panelFooter;
         private KryptonBorderEdge _footerBorderEdge;
         private KryptonButton _footerToggleButton;
-        private KryptonWrapLabel _footerText;
+        private KryptonWrapLabel _footerWrapLabel;
         private KryptonCheckBox _footerCheckBox;
         private KryptonRichTextBox _footerRichTextBox;
         private TableLayoutPanel tableLayoutPanel2;

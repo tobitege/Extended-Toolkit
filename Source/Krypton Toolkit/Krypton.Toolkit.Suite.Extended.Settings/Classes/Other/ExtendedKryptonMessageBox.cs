@@ -52,6 +52,10 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         _button1 = new();
         _button2 = new();
         _doNotShowAgainOption = new();
+        _panelFooter = new();
+        _footerBorderEdge = new();
+        _footerText = new();
+        _footerToggleLink = new();
         ((ISupportInitialize)_panelMessage).BeginInit();
         _panelMessage.SuspendLayout();
         ((ISupportInitialize)_panelMessageText).BeginInit();
@@ -229,7 +233,7 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         _footerText.Name = "_footerText";
         _footerText.Size = new(136, 50);
         _footerText.StateCommon.Font = new(@"Segoe UI", 9F);
-        _footerText.StateCommon.ShortText.Color1 = Color.FromArgb(30, 57, 91);
+        _footerText.StateCommon.TextColor = Color.FromArgb(30, 57, 91);
         _footerText.LabelStyle = LabelStyle.NormalPanel;
         _footerText.Text = @"Footer Text";
         // 
@@ -302,6 +306,10 @@ internal class ExtendedKryptonMessageBox : KryptonForm
     private string _doNotShowAgainOptionText;
     private bool _doNotShowAgainOptionResult, _showDoNotShowAgainOption, _useTimeOutOption;
     private DialogResult _defaultTimeOutResponse;
+    private KryptonPanel _panelFooter;
+    private KryptonBorderEdge _footerBorderEdge;
+    private KryptonWrapLabel _footerText;
+    private KryptonButton _footerToggleLink;
     #endregion
 
     #region Static Fields
@@ -1692,6 +1700,12 @@ internal class ExtendedKryptonMessageBox : KryptonForm
         {
             Hide(); // May need to find a more elegant solution
         }
+    }
+
+    private void FooterToggleLink_Click(object sender, EventArgs e)
+    {
+        // Toggle footer visibility
+        _panelFooter.Visible = !_panelFooter.Visible;
     }
     #endregion
 }

@@ -15,6 +15,7 @@
     - Added `UnSiteNodes()` method for batch removing child nodes and descendants
     - Optimized insertion position calculation to avoid redundant calculations
     - Improved removal order to prevent index shifting issues
+* Resolved [#25](https://github.com/Krypton-Suite/Extended-Toolkit/issues/25), Can't add outlook grid group box control - Fixed language-related error when adding `KryptonOutlookGridGroupBox` control in Visual Studio designer. Replaced deprecated `LanguageManager.Instance.GetString()` calls with `KryptonOutlookGridLanguageManager.GeneralStrings` for DateInterval enum localization, eliminating dependency on resource files that could fail with EN/GB language settings.
 * Resolved [#156](https://github.com/Krypton-Suite/Extended-Toolkit/issues/156), `KryptonOutlookGrid` Group Header graphic issue with scaling at 150%
 * Implemented [#511](https://github.com/Krypton-Suite/Extended-Toolkit/issues/511), `KryptonMessageBoxExtended` Expandable Footer Feature
   - **New Expandable Footer** - Similar to Windows TaskDialog, the message box now supports an expandable footer area

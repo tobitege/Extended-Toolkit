@@ -1080,6 +1080,24 @@ public partial class KryptonOutlookGrid : KryptonDataGridView
         Fill();
     }
 
+    /// <summary>
+    /// Gets the display text for a DateInterval enum name.
+    /// </summary>
+    /// <param name="intervalName">The name of the DateInterval enum value.</param>
+    /// <returns>The localized display text.</returns>
+    private static string GetDateIntervalDisplayText(string intervalName)
+    {
+        return intervalName switch
+        {
+            nameof(DateInterval.Day) => KryptonOutlookGridLanguageManager.GeneralStrings.Day,
+            nameof(DateInterval.Month) => KryptonOutlookGridLanguageManager.GeneralStrings.Month,
+            nameof(DateInterval.Quarter) => KryptonOutlookGridLanguageManager.GeneralStrings.Quarter,
+            nameof(DateInterval.Year) => KryptonOutlookGridLanguageManager.GeneralStrings.Year,
+            nameof(DateInterval.Smart) => KryptonOutlookGridLanguageManager.GeneralStrings.Smart,
+            _ => intervalName
+        };
+    }
+
     private void OnGroupIntervalClick(object sender, EventArgs e)
     {
         KryptonContextMenuItem? item = (KryptonContextMenuItem)sender;
@@ -1885,7 +1903,8 @@ public partial class KryptonOutlookGrid : KryptonDataGridView
             KryptonContextMenuItemBase[] arrayOptions = new KryptonContextMenuItemBase[names.Length];
             for (int i = 0; i < names.Length; i++)
             {
-                it = new KryptonContextMenuItem(LanguageManager.Instance.GetString(names[i]));
+                string displayText = GetDateIntervalDisplayText(names[i]);
+                it = new KryptonContextMenuItem(displayText);
                 it.Tag = names[i];
                 it.Click += OnGroupIntervalClick;
                 arrayOptions[i] = it;

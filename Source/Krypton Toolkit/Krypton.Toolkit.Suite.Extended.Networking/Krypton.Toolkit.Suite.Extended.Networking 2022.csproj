@@ -74,7 +74,7 @@
 			<Choose>
 				<When Condition="'$(Configuration)' == 'Nightly'">
 					<ItemGroup>
-						<PackageReference Include="Krypton.Standard.Toolkit.Nightly" Version="110.26.1.28-alpha" />
+						<PackageReference Include="Krypton.Standard.Toolkit.Nightly" Version="110.26.2.42-alpha" />
 					</ItemGroup>
 				</When>
 
@@ -105,7 +105,7 @@
 	</Choose>
 
 	<ItemGroup>
-		<PackageReference Include="System.DirectoryServices" Version="10.0.2" />
+		<PackageReference Include="System.DirectoryServices" Version="11.0.0-preview.1.26104.118" />
 	</ItemGroup>
 
 	<ItemGroup>

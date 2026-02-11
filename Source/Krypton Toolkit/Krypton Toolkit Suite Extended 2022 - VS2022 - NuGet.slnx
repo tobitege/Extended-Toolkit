@@ -151,6 +151,7 @@
     <File Path="../../purge.cmd" />
   </Folder>
   <Folder Name="/Repository Items/Build System/Generate Packages/">
+    <File Path="../../Directory.Build.props" />
     <File Path="Directory.Build.props" />
     <File Path="Directory.Build.targets" />
   </Folder>

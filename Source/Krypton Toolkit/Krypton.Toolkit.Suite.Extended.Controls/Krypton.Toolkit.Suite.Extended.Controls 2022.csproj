@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<Choose>
 		<When Condition="'$(Configuration)' == 'Nightly' Or '$(Configuration)' == 'Canary' Or '$(Configuration)' == 'Release' Or '$(Configuration)' == 'Debug'">
@@ -74,7 +74,7 @@
 			<Choose>
 				<When Condition="'$(Configuration)' == 'Nightly'">
 					<ItemGroup>
-						<PackageReference Include="Krypton.Standard.Toolkit.Nightly" Version="110.26.1.28-alpha" />
+						<PackageReference Include="Krypton.Standard.Toolkit.Nightly" Version="110.26.2.42-alpha" />
 					</ItemGroup>
 				</When>
 

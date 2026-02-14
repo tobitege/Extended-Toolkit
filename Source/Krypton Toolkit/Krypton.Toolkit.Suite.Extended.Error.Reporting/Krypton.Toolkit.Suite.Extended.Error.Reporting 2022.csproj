@@ -74,7 +74,7 @@
 			<Choose>
 				<When Condition="'$(Configuration)' == 'Nightly'">
 					<ItemGroup>
-						<PackageReference Include="Krypton.Standard.Toolkit.Nightly" Version="110.26.1.28-alpha" />
+						<PackageReference Include="Krypton.Standard.Toolkit.Nightly" Version="110.26.2.42-alpha" />
 					</ItemGroup>
 				</When>
 
@@ -112,7 +112,7 @@
 		<PackageReference Include="Handlebars.Net" Version="2.1.6" />
 		<PackageReference Include="ProDotNetZip" Version="1.20.0" />
 		<PackageReference Include="Simple-MAPI.NET" Version="1.2.1" />
-		<PackageReference Include="System.Management" Version="10.0.2" />
+		<PackageReference Include="System.Management" Version="11.0.0-preview.1.26104.118" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,4 +1,4 @@
-﻿#region MIT License
+#region MIT License
 /*
  * MIT License
  *
@@ -39,6 +39,13 @@ public class Alert
 
     #region Read Only
     private static readonly int IntervalDefault = 1850;
+    #endregion
+
+    #region ShowMessage
+    /// <summary>Shows a message with an optional header/title.</summary>
+    /// <param name="message">The message text.</param>
+    /// <param name="headerText">Optional header or title text.</param>
+    public static void ShowMessage(string message, string? headerText = null) => ShowInformationMessage(message, headerText);
     #endregion
 
     #region Success

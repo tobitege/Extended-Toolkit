@@ -6,6 +6,9 @@
 
 ## 2026-11-xx - Build 2611 - November 2026
 
+* Implemented [#57](https://github.com/Krypton-Suite/Extended-Toolkit/issues/57), `Alert.ShowMessage` optional header/title
+  - **New API** - `Alert.ShowMessage(string message, string? headerText = null)` shows a message with an optional header or title
+  - When `headerText` is provided, the alert displays the header in bold with the message below; when omitted, only the message is shown (same behaviour as existing typed methods)
 * Resolved [#411](https://github.com/Krypton-Suite/Extended-Toolkit/issues/411), Exapanding a TreeGridView Node takes a long time when there are many children
   - **Performance Optimization** - Significantly improved expansion/collapse performance for nodes with many children (250+ nodes)
   - **Batch Operations** - Replaced individual row insertions/removals with optimized batch operations

@@ -6,6 +6,7 @@
 
 ## 2026-11-xx - Build 2611 - November 2026
 
+* Resolved [#351](https://github.com/Krypton-Suite/Extended-Toolkit/issues/351), Closing a floating toolbar window causes the toolbar to disappear - Closing the floating toolbar or menustrip window (e.g. via the close button) now returns the control to its original host instead of making it disappear. Updated `FloatableToolStrip` and `FloatableMenuStrip` to re-parent the control back to the host in the FormClosing handler, consistent with double-clicking the title bar.
 * Resolved [#411](https://github.com/Krypton-Suite/Extended-Toolkit/issues/411), Exapanding a TreeGridView Node takes a long time when there are many children
   - **Performance Optimization** - Significantly improved expansion/collapse performance for nodes with many children (250+ nodes)
   - **Batch Operations** - Replaced individual row insertions/removals with optimized batch operations

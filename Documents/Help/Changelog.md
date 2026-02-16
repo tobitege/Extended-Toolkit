@@ -7,6 +7,14 @@
 ## 2026-11-xx - Build 2611 - November 2026
 
 * Resolved [#351](https://github.com/Krypton-Suite/Extended-Toolkit/issues/351), Closing a floating toolbar window causes the toolbar to disappear - Closing the floating toolbar or menustrip window (e.g. via the close button) now returns the control to its original host instead of making it disappear. Updated `FloatableToolStrip` and `FloatableMenuStrip` to re-parent the control back to the host in the FormClosing handler, consistent with double-clicking the title bar.
+* Implemented [#57](https://github.com/Krypton-Suite/Extended-Toolkit/issues/57), `Alert.ShowMessage` optional header/title
+  - **New API** - `Alert.ShowMessage(string message, string? headerText = null)` shows a message with an optional header or title
+  - When `headerText` is provided, the alert displays the header in bold with the message below; when omitted, only the message is shown (same behaviour as existing typed methods)
+* Resolved [#56](https://github.com/Krypton-Suite/Extended-Toolkit/issues/56), Alert.ShowMessage should be within the bounds of the parent application
+  - **Positioning Fix** - Alerts now appear within the parent application bounds instead of the primary screen bottom-right (fixes unnoticed alerts on 4K monitors or RDP sessions when the app is in a small window)
+  - **Optional Owner Parameter** - All `Alert` methods now accept an optional `IWin32Window? owner` parameter for explicit parent binding
+  - **Smart Fallback** - When no owner is passed, uses `Form.ActiveForm` when available for improved default behavior
+  - **Proper Ownership** - Sets form `Owner` when a Form is passed, ensuring correct z-order and window relationship
 * Resolved [#411](https://github.com/Krypton-Suite/Extended-Toolkit/issues/411), Exapanding a TreeGridView Node takes a long time when there are many children
   - **Performance Optimization** - Significantly improved expansion/collapse performance for nodes with many children (250+ nodes)
   - **Batch Operations** - Replaced individual row insertions/removals with optimized batch operations

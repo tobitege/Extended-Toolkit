@@ -6,6 +6,9 @@
 
 ## 2026-11-xx - Build 2611 - November 2026
 
+* Implemented [#57](https://github.com/Krypton-Suite/Extended-Toolkit/issues/57), `Alert.ShowMessage` optional header/title
+  - **New API** - `Alert.ShowMessage(string message, string? headerText = null)` shows a message with an optional header or title
+  - When `headerText` is provided, the alert displays the header in bold with the message below; when omitted, only the message is shown (same behaviour as existing typed methods)
 * Resolved [#56](https://github.com/Krypton-Suite/Extended-Toolkit/issues/56), Alert.ShowMessage should be within the bounds of the parent application
   - **Positioning Fix** - Alerts now appear within the parent application bounds instead of the primary screen bottom-right (fixes unnoticed alerts on 4K monitors or RDP sessions when the app is in a small window)
   - **Optional Owner Parameter** - All `Alert` methods now accept an optional `IWin32Window? owner` parameter for explicit parent binding

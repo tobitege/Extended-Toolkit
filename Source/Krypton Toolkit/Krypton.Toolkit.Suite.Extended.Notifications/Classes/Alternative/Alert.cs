@@ -52,13 +52,14 @@ public class Alert
     /// <summary>Displays a success message.</summary>
     /// <param name="message">The message.</param>
     /// <param name="headerText">The header text.</param>
-    public static void DisplaySuccessMessage(string message, string? headerText = null) => DisplaySuccessMessage(message, IntervalDefault, headerText);
+    /// <param name="owner">Optional parent window. When provided, the alert is positioned within the owner's bounds and owned by it.</param>
+    public static void DisplaySuccessMessage(string message, string? headerText = null, IWin32Window? owner = null) => DisplaySuccessMessage(message, IntervalDefault, headerText, owner);
 
-    private static void DisplaySuccessMessage(string message, int interval, string? headerText = null)
+    private static void DisplaySuccessMessage(string message, int interval, string? headerText = null, IWin32Window? owner = null)
     {
         KryptonAlertWindow alertWindow = new KryptonAlertWindow();
 
-        alertWindow.DisplayAlert(message, AlertType.Success, interval, headerText: headerText);
+        alertWindow.DisplayAlert(message, AlertType.Success, interval, headerText: headerText, owner: owner);
     }
     #endregion
 
@@ -67,13 +68,14 @@ public class Alert
     /// <summary>Shows a information message.</summary>
     /// <param name="message">The message.</param>
     /// <param name="headerText">The header text.</param>
-    public static void ShowInformationMessage(string message, string? headerText = null) => ShowInformationMessage(message, IntervalDefault, headerText);
+    /// <param name="owner">Optional parent window. When provided, the alert is positioned within the owner's bounds and owned by it.</param>
+    public static void ShowInformationMessage(string message, string? headerText = null, IWin32Window? owner = null) => ShowInformationMessage(message, IntervalDefault, headerText, owner);
 
-    private static void ShowInformationMessage(string message, int interval, string? headerText = null)
+    private static void ShowInformationMessage(string message, int interval, string? headerText = null, IWin32Window? owner = null)
     {
         KryptonAlertWindow alertWindow = new KryptonAlertWindow();
 
-        alertWindow.DisplayAlert(message, AlertType.Information, interval, headerText: headerText);
+        alertWindow.DisplayAlert(message, AlertType.Information, interval, headerText: headerText, owner: owner);
     }
 
     #endregion
@@ -83,13 +85,14 @@ public class Alert
     /// <summary>Shows a warning message.</summary>
     /// <param name="message">The message.</param>
     /// <param name="headerText">The header text.</param>
-    public static void ShowWarningMessage(string message, string? headerText = null) => ShowWarningMessage(message, IntervalDefault, headerText);
+    /// <param name="owner">Optional parent window. When provided, the alert is positioned within the owner's bounds and owned by it.</param>
+    public static void ShowWarningMessage(string message, string? headerText = null, IWin32Window? owner = null) => ShowWarningMessage(message, IntervalDefault, headerText, owner);
 
-    private static void ShowWarningMessage(string message, int interval, string? headerText = null)
+    private static void ShowWarningMessage(string message, int interval, string? headerText = null, IWin32Window? owner = null)
     {
         KryptonAlertWindow alertWindow = new KryptonAlertWindow();
 
-        alertWindow.DisplayAlert(message, AlertType.Warning, interval, headerText: headerText);
+        alertWindow.DisplayAlert(message, AlertType.Warning, interval, headerText: headerText, owner: owner);
     }
 
     #endregion
@@ -99,13 +102,14 @@ public class Alert
     /// <summary>Shows a error message.</summary>
     /// <param name="message">The message.</param>
     /// <param name="headerText">The header text.</param>
-    public static void ShowErrorMessage(string message, string? headerText = null) => ShowErrorMessage(message, IntervalDefault, headerText);
+    /// <param name="owner">Optional parent window. When provided, the alert is positioned within the owner's bounds and owned by it.</param>
+    public static void ShowErrorMessage(string message, string? headerText = null, IWin32Window? owner = null) => ShowErrorMessage(message, IntervalDefault, headerText, owner);
 
-    private static void ShowErrorMessage(string message, int interval, string? headerText = null)
+    private static void ShowErrorMessage(string message, int interval, string? headerText = null, IWin32Window? owner = null)
     {
         KryptonAlertWindow alertWindow = new KryptonAlertWindow();
 
-        alertWindow.DisplayAlert(message, AlertType.Error, interval, headerText: headerText);
+        alertWindow.DisplayAlert(message, AlertType.Error, interval, headerText: headerText, owner: owner);
     }
 
     #endregion
@@ -118,13 +122,14 @@ public class Alert
     /// <param name="backColour">The back colour.</param>
     /// <param name="textColour">The text colour.</param>
     /// <param name="headerText">The header text.</param>
-    public static void ShowCustomMessage(string message, Image? image = null, Color backColour = default, Color textColour = default, string? headerText = null) => ShowCustomMessage(message, IntervalDefault, image, backColour, textColour, headerText);
+    /// <param name="owner">Optional parent window. When provided, the alert is positioned within the owner's bounds and owned by it.</param>
+    public static void ShowCustomMessage(string message, Image? image = null, Color backColour = default, Color textColour = default, string? headerText = null, IWin32Window? owner = null) => ShowCustomMessage(message, IntervalDefault, image, backColour, textColour, headerText, owner);
 
-    private static void ShowCustomMessage(string message, int interval, Image? image = null, Color backColour = default, Color textColour = default, string? headerText = null)
+    private static void ShowCustomMessage(string message, int interval, Image? image = null, Color backColour = default, Color textColour = default, string? headerText = null, IWin32Window? owner = null)
     {
         KryptonAlertWindow alertWindow = new KryptonAlertWindow();
 
-        alertWindow.DisplayAlert(message, AlertType.Custom, interval, image, backColour == default ? Color.FromArgb(83, 92, 104) : backColour, textColour == default ? Color.White : textColour, headerText);
+        alertWindow.DisplayAlert(message, AlertType.Custom, interval, image, backColour == default ? Color.FromArgb(83, 92, 104) : backColour, textColour == default ? Color.White : textColour, headerText, owner);
     }
 
     #endregion
